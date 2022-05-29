@@ -1,5 +1,7 @@
 package com.cts.processPension.exception;
 
+import static feign.Util.UTF_8;
+
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -23,6 +25,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import feign.FeignException;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -75,6 +79,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	 * @param response
 	 * @return ErrorResponse
 	 */
+	
 	@ExceptionHandler(FeignException.class)
 	public ResponseEntity<ErrorResponse> handleFeignStatusException(FeignException exception,
 			HttpServletResponse response) {
@@ -82,7 +87,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		log.debug("Message: {}", exception.getMessage());
 		ErrorResponse errorResponse;
 		log.debug("UTF-8 Message: {}", exception.contentUTF8());
-		if (exception.contentUTF8().isBlank()) {
+		if (StringUtils.isBlank(exception.contentUTF8())) {
 			errorResponse = new ErrorResponse("Invalid Request");
 		} else {
 			try {
