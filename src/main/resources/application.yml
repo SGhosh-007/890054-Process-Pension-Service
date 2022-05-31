@@ -28,6 +28,10 @@ eureka:
       # add public IP link here
       defaultZone: http://34.217.30.41:8761/eureka/ 
       
+url.app.auth: http://34.219.55.47:8081
+url.app.pds: http://52.12.90.147:8084
+url.app.pdts: http://35.87.72.78:8083
+      
 logging:
   level:
     '[org.springframework.web]': ERROR
